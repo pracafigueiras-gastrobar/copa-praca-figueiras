@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copa do Mundo no Praça Figueiras Gastrobar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vinho: #722632;
+    --preto: #090909;
+    --dourado: #DAA520;
+    --creme: #F5EDD6;
+    --vinho-claro: #963646;
+    --verde: #1F564C;
+    --verde-claro: #2a7a6c;
+    --amarelo-brasil: #FFDF00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--preto);
+    color: var(--creme);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .5;
+  }
+
+  /* ════════════════════ HERO ════════════════════ */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 40px 20px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(218,165,32,.16) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(114,38,50,.42) 0%, transparent 60%),
+      linear-gradient(160deg, #090909 0%, #1b0d11 40%, #090909 100%);
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-55deg, transparent, transparent 60px, rgba(218,165,32,.03) 60px, rgba(218,165,32,.03) 61px);
+  }
+  .ball { position: absolute; border-radius: 50%; pointer-events: none; }
+  .ball-1 {
+    width: 400px; height: 400px; top: -120px; right: -100px;
+    background: radial-gradient(circle, rgba(218,165,32,.12) 0%, transparent 70%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .ball-2 {
+    width: 300px; height: 300px; bottom: -80px; left: -60px;
+    background: radial-gradient(circle, rgba(31,86,76,.25) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: .7; }
+  }
+  .hero-content {
+    position: relative; z-index: 2; text-align: center; max-width: 760px;
+    animation: fadeUp .9s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .logo-circle {
+    width: 110px; height: 110px; border-radius: 50%;
+    border: 2px solid rgba(218,165,32,.5);
+    background: rgba(22,22,23,.7); backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    box-shadow: 0 0 40px rgba(218,165,32,.15);
+  }
+  .logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 8vw, 86px); font-weight: 900; line-height: .95; color: #fff;
+    animation: fadeUp .9s .2s ease both;
+  }
+  .hero-title span { display: block; color: var(--dourado); -webkit-text-stroke: 1px var(--dourado); }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(18px, 3vw, 26px); font-weight: 600;
+    color: rgba(245,237,214,.7); margin: 18px 0 32px; letter-spacing: 1px;
+    animation: fadeUp .9s .3s ease both;
+  }
+  .flags-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-bottom: 40px;
+    animation: fadeUp .9s .4s ease both;
+  }
+  .flag-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 40px; padding: 8px 18px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: 1px; color: #fff;
+  }
+  .flag-emoji { font-size: 22px; }
+  .vs-badge {
+    font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700;
+    color: var(--dourado); letter-spacing: 2px;
+  }
+  .date-strip {
+    display: inline-flex; align-items: center; gap: 20px;
+    background: var(--dourado); color: var(--preto); padding: 10px 28px;
+    border-radius: 4px; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 40px; animation: fadeUp .9s .5s ease both;
+  }
+  .date-strip span { opacity: .6; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--vinho);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 16px 44px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 30px rgba(114,38,50,.38);
+    animation: fadeUp .9s .6s ease both;
+  }
+
+  .cta-btn:hover {
+    background: var(--vinho-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(114,38,50,.48);
+  }
+  .scroll-down {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    opacity: .4; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-down svg { width: 16px; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ════════════════════ SECTION BASE ════════════════════ */
+  section { padding: 80px 20px; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--dourado); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 52px);
+    font-weight: 900; line-height: 1.05; color: #fff; margin-bottom: 20px;
+  }
+  .section-title em { font-style: normal; color: var(--dourado); }
+  .divider { width: 60px; height: 3px; background: var(--dourado); margin-bottom: 40px; }
+
+  /* ════════════════════ PROMOÇÕES ════════════════════ */
+  .promo-section {
+    background: linear-gradient(170deg, #090909 0%, #14090c 100%);
+    border-top: 1px solid rgba(218,165,32,.15);
+    border-bottom: 1px solid rgba(218,165,32,.15);
+  }
+  .promo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  /* Card com imagem no topo */
+  .promo-card {
+    background: #14090c;
+    border: 1px solid rgba(218,165,32,.15);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color .25s, transform .25s;
+  }
+  .promo-card:hover { border-color: rgba(218,165,32,.5); transform: translateY(-4px); }
+
+  /* ── ÁREA DE IMAGEM — PROMOÇÕES ──
+     Troque o src de cada <img class="promo-img"> pelo caminho da sua foto.
+     Tamanho recomendado: 520×280px (proporção 16:9 horizontal).
+  */
+  .promo-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #0d1a18;
+    position: relative;
+  }
+  .promo-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform .4s;
+  }
+  .promo-card:hover .promo-img-wrap img { transform: scale(1.04); }
+
+  /* Placeholder visual quando não há imagem */
+  .promo-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(135deg, #0d1a18 0%, #1a2e28 100%);
+    border-bottom: 1px dashed rgba(218,165,32,.2);
+  }
+  .promo-img-placeholder span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+    letter-spacing: 2px; color: rgba(218,165,32,.4); text-transform: uppercase;
+  }
+  .promo-img-placeholder svg { opacity: .2; }
+
+  .promo-card-body { padding: 24px 24px 28px; }
+  .promo-card-body h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--dourado); margin-bottom: 6px;
+  }
+  .promo-highlight {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 22px;
+    font-weight: 800; color: #fff; display: block; margin-bottom: 6px;
+  }
+  .promo-card-body p { font-size: 15px; line-height: 1.6; color: rgba(245,237,214,.7); }
+
+  /* ════════════════════ EXPERIÊNCIA ════════════════════ */
+.exp-banner {
+  position: relative;
+  padding: 110px 20px;
+  overflow: hidden;
+
+  background-image:
+    linear-gradient(
+      rgba(9, 9, 9, 0.78),
+      rgba(18, 7, 10, 0.84)
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(114, 38, 50, 0.35),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(218, 165, 32, 0.10),
+      transparent 38%
+    ),
+    url("imagens/bar-copa.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  border-top: 1px solid rgba(218,165,32,.12);
+  border-bottom: 1px solid rgba(218,165,32,.12);
+}
+
+.exp-banner::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(circle at top right,
+    rgba(255,223,0,.10),
+    transparent 35%);
+
+  pointer-events: none;
+}
+
+.exp-content {
+  position: relative;
+  z-index: 2;
+}
+
+.exp-description {
+  max-width: 720px;
+
+  font-size: 18px;
+  line-height: 1.8;
+
+  color: rgba(255,255,255,.78);
+
+  margin-bottom: 50px;
+}
+
+.exp-cards-grid {
+  display: grid;
+
+  grid-template-columns:
+  repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 18px;
+}
+
+.exp-card {
+  background: rgba(0,0,0,.28);
+
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 10px;
+
+  padding: 28px 24px;
+
+  transition:
+    transform .25s,
+    border-color .25s,
+    background .25s;
+}
+
+.exp-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(255,223,0,.4);
+
+  background: rgba(0,0,0,.42);
+}
+
+.exp-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  color: #fff;
+}
+
+.exp-card-line {
+  width: 42px;
+  height: 3px;
+
+  background: var(--dourado);
+
+  margin-top: 14px;
+}
+
+  /* ════════════════════ CARDÁPIO ════════════════════ */
+  .menu-section { background: var(--preto); }
+
+  /* Grid de cards com imagem para o cardápio */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  /* ── ÁREA DE IMAGEM — CARDÁPIO ──
+     Cada .menu-card tem um <img class="menu-img"> no topo.
+     Troque o src pelo caminho da foto do petisco.
+     Tamanho recomendado: 400×300px.
+     O comentário acima de cada card indica qual petisco é.
+  */
+  .menu-card {
+    background: #14090c;
+    border: 1px solid rgba(218,165,32,.18);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .menu-card:hover { border-color: var(--dourado); transform: translateY(-3px); }
+
+  .menu-img-wrap {
+    width: 100%; aspect-ratio: 4 / 3; overflow: hidden;
+    background: #0d1a18; position: relative;
+  }
+  .menu-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .4s;
+  }
+  .menu-card:hover .menu-img-wrap img { transform: scale(1.06); }
+
+  .menu-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px;
+    background: linear-gradient(135deg, #0d1a18 0%, #1e2e2a 100%);
+  }
+  .menu-img-placeholder span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 10px;
+    letter-spacing: 2px; color: rgba(218,165,32,.35); text-transform: uppercase;
+  }
+  .menu-img-placeholder svg { opacity: .15; }
+
+  .menu-card-label {
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .menu-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dourado); flex-shrink: 0; }
+  .menu-card-label span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 600;
+    letter-spacing: .5px; color: rgba(245,237,214,.9);
+  }
+
+  /* ════════════════════ LOCALIZAÇÃO ════════════════════ */
+  .location-section {
+    background: linear-gradient(170deg, #14090c 0%, #090909 100%);
+    border-top: 1px solid rgba(218,165,32,.12);
+  }
+  .location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+    margin-top: 48px;
+  }
+  @media (max-width: 720px) { .location-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  .location-map {
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(218,165,32,.2);
+    box-shadow: 0 12px 40px rgba(0,0,0,.4);
+    line-height: 0;
+  }
+  .location-map iframe { width: 100%; height: 340px; border: 0; display: block; }
+
+  .location-info { padding-top: 8px; }
+  .location-info h3 {
+    font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900;
+    color: #fff; margin-bottom: 6px;
+  }
+  .location-info h3 em { font-style: normal; color: var(--dourado); }
+  .location-address {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 600;
+    color: rgba(245,237,214,.7); line-height: 1.6; margin-bottom: 28px;
+  }
+  .location-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+  .loc-badge {
+    background: rgba(31,86,76,.2); border: 1px solid rgba(31,86,76,.4);
+    border-radius: 4px; padding: 8px 14px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600;
+    letter-spacing: .5px; color: rgba(245,237,214,.8);
+  }
+  .loc-badge strong { color: var(--dourado); }
+
+  /* ════════════════════ FORMULÁRIO ════════════════════ */
+  .form-section {
+    background: linear-gradient(170deg, #14090c 0%, #090909 100%);
+    padding: 100px 20px;
+    border-top: 1px solid rgba(218,165,32,.1);
+  }
+  .form-section .container {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+  @media (max-width: 720px) { .form-section .container { grid-template-columns: 1fr; gap: 40px; } }
+  .form-aside h2 {
+    font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 16px;
+  }
+  .form-aside h2 em { font-style: normal; color: var(--dourado); }
+  .form-aside p { font-size: 15px; line-height: 1.7; color: rgba(245,237,214,.6); margin-bottom: 28px; }
+  .info-badge {
+    background: rgba(218,165,32,.1); border: 1px solid rgba(218,165,32,.3);
+    border-radius: 6px; padding: 16px 20px;
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 13px; line-height: 1.6; color: rgba(245,237,214,.7);
+  }
+  .info-badge strong { color: var(--dourado); display: block; font-size: 14px; margin-bottom: 2px; }
+  .form-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(218,165,32,.2);
+    border-radius: 10px; padding: 40px 36px; backdrop-filter: blur(10px);
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(245,237,214,.5); margin-bottom: 8px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 5px; padding: 13px 16px; color: #fff;
+    font-family: 'Barlow', sans-serif; font-size: 15px; outline: none;
+    transition: border-color .2s, background .2s; appearance: none;
+  }
+  .form-group select option { background: #1b0d11; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--dourado); background: rgba(218,165,32,.05);
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.25); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+  .submit-btn {
+    width: 100%; background: var(--dourado); color: var(--preto);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px;
+    letter-spacing: 3px; text-transform: uppercase; padding: 17px;
+    border: none; border-radius: 5px; cursor: pointer;
+    transition: opacity .2s, transform .2s; margin-top: 8px;
+  }
+  .submit-btn:hover { opacity: .88; transform: translateY(-1px); }
+  .form-note {
+    font-size: 12px; color: rgba(245,237,214,.35); text-align: center;
+    margin-top: 14px; line-height: 1.6;
+  }
+  .success-msg { display: none; text-align: center; padding: 32px 20px; }
+  .success-msg .big-check { font-size: 56px; margin-bottom: 16px; }
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--dourado); margin-bottom: 10px; }
+  .success-msg p { font-size: 15px; color: rgba(245,237,214,.65); line-height: 1.7; }
+
+  .form-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 22px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(245,237,214,.65);
+}
+
+.form-terms input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--dourado);
+  flex-shrink: 0;
+}
+
+.form-terms a {
+  color: var(--dourado);
+  text-decoration: underline;
+}
+
+  /* ════════════════════ FOOTER ════════════════════ */
+  footer {
+    background: #0a0a0a; border-top: 1px solid rgba(218,165,32,.12);
+    padding: 40px 20px; text-align: center;
+  }
+  footer .logo-circle {
+    width: 70px; height: 70px; margin: 0 auto 16px;
+    border-color: rgba(218,165,32,.3);
+  }
+  footer .logo-img {
+  width: 50px;
+  height: 50px;
+  }
+  footer p { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1px; color: rgba(245,237,214,.35); }
+  footer strong { color: rgba(245,237,214,.6); }
+  footer .hashtag { color: var(--dourado); font-size: 16px; font-weight: 700; margin: 10px 0; display: block; }
+
+  /* ════════════════════ REVEAL ════════════════════ */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ════════════════════ MOBILE ════════════════════ */
+  @media (max-width: 600px) {
+    .promo-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 28px 20px; }
+    .exp-cards-grid { grid-template-columns: 1fr 1fr; }
+    .menu-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  }
+
+  .flag-img {
+  width: 26px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(0,0,0,.25);
+  flex-shrink: 0;
+  }
+
+  .success-flag {
+  width: 74px;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(218,165,32,.18);
+  }
+
+  .whatsapp-floating-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99990;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,255,255,.18);
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.22), transparent 35%),
+    linear-gradient(135deg, #25D366, #128C7E);
+
+  color: #fff;
+  cursor: pointer;
+
+  box-shadow: 0 16px 40px rgba(37,211,102,.28);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.whatsapp-floating-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(37,211,102,.38);
+}
+
+.whatsapp-floating-btn span {
+  display: none;
+}
+
+.whatsapp-floating-btn::before {
+  content: "";
+
+  width: 30px;
+  height: 30px;
+
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: block;
+
+  margin: auto;
+}
+
+.whatsapp-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99991;
+
+  background: rgba(0,0,0,.68);
+  backdrop-filter: blur(6px);
+
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.whatsapp-popup.active {
+  display: flex;
+}
+
+.whatsapp-popup-box {
+  width: min(94vw, 440px);
+  position: relative;
+
+  background:
+    radial-gradient(circle at top right, rgba(218,165,32,.12), transparent 34%),
+    linear-gradient(160deg, #101816 0%, #0d0d0e 100%);
+
+  border: 1px solid rgba(218,165,32,.26);
+  border-radius: 18px;
+
+  padding: 34px 30px 28px;
+
+  box-shadow: 0 28px 100px rgba(0,0,0,.55);
+  animation: popupFadeUp .25s ease both;
+}
+
+@keyframes popupFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.whatsapp-popup-close {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+
+  background: transparent;
+  border: 0;
+  color: var(--dourado);
+
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.whatsapp-popup-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.whatsapp-popup-text {
+  color: rgba(245,237,214,.66);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.whatsapp-popup-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+
+  border: 0;
+  border-radius: 6px;
+
+  padding: 15px;
+
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.whatsapp-popup-submit:hover {
+  opacity: .9;
+}
+
+.whatsapp-popup-note {
+  margin-top: 14px;
+  text-align: center;
+  color: rgba(245,237,214,.42);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .whatsapp-floating-btn {
+    right: 18px;
+    bottom: 18px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .whatsapp-popup-box {
+    padding: 30px 22px 24px;
+  }
+}
+
+.whatsapp-terms {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 18px 0;
+  color: rgba(245,237,214,.62);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.whatsapp-terms input {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  accent-color: var(--dourado);
+  flex-shrink: 0;
+}
+
+.whatsapp-terms a {
+  color: var(--dourado);
+  text-decoration: underline;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="ball ball-1"></div>
+  <div class="ball ball-2"></div>
+
+  <div class="hero-content">
+    <div class="logo-circle">
+  <img src="imagens/logo_padrao.png" alt="Praça Figueiras" class="logo-img">
+  </div>
+
+    <p class="hero-eyebrow">Quartas de Final - Copa do Mundo 2026</p>
+    <h1 class="hero-title">VIVA ESSA<br><span>EXPERIÊNCIA</span></h1>
+    <p class="hero-sub">Transmissão ao vivo · DJ · Petiscos · Promoções especiais</p>
+
+    <div class="flags-row">
+      <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" class="flag-img"> BRASIL</div>
+      <span class="vs-badge">VS</span>
+      <div class="flag-pill"> A DEFINIR</div>
+    </div>
+
+    <div class="date-strip">
+      🗓️ A definir &nbsp;<span>|</span>&nbsp; -- &nbsp;<span>|</span>&nbsp; Praça Figueiras GASTROBAR
+    </div>
+
+    <a href="#reserva" class="cta-btn">Garantir Minha Reserva</a>
+  </div>
+
+  <div class="scroll-down">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    SAIBA MAIS
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PROMOÇÕES — Seção 2
+     Cada card tem um bloco .promo-img-wrap com uma <img>.
+     Instrução para substituir imagens está no comentário de cada card.
+══════════════════════════════════════ -->
+<section class="promo-section">
+  <div class="container">
+    <p class="section-label reveal">O que vem por aí</p>
+    <h2 class="section-title reveal">Promoções <em>especiais</em><br>para o grande dia</h2>
+    <div class="divider reveal"></div>
+
+    <div class="promo-grid reveal">
+
+      <!-- ══ CARD 1 — RODÍZIO DE BOTECO
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+           Sugestão: foto de petiscos variados na mesa / mesa cheia de comida.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card">
+        <div class="promo-img-wrap">
+          <img src="imagens/rodizio_boteco.jpg" alt="Rodízio de Boteco"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Rodízio de Boteco</h3>
+          <span class="promo-highlight">À vontade</span>
+          <p>Petiscos liberados enquanto você torce pelo Brasil!</p>
+        </div>
+      </div>
+
+      <!-- ══ CARD 2 — DRINKS ESPECIAIS
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+           Sugestão: foto de drinks / caipirinhas / chope gelado.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card">
+        <div class="promo-img-wrap">
+          <img src="imagens/drink_cacau2.jpg" alt="Drinks Especiais"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Drinks com valores Especiais</h3>
+          <span class="promo-highlight">Preços da Copa</span>
+          <p>Nossos drinks com valores imperdíveis durante os jogos da seleção brasileira.</p>
+        </div>
+      </div>
+
+      <!-- ══ CARD 3 — SORTEIO DE PRÊMIOS
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+           Sugestão: foto de prêmios, troféu, brindes ou ambiente da festa.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card">
+        <div class="promo-img-wrap">
+          <img src="imagens/sorteio.jpg" alt="Sorteio de Prêmios"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Sorteio de Prêmios</h3>
+          <span class="promo-highlight">Toda rodada</span>
+          <p>Participe dos sorteios especiais e leve para casa prêmios incríveis.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     EXPERIÊNCIA — "Muito além do jogo"
+     Cards no estilo do cardápio de petiscos
+══════════════════════════════════════ -->
+<section class="exp-banner">
+  <div class="exp-overlay"></div>
+
+  <div class="container exp-content">
+    <p class="section-label reveal">Muito além do jogo</p>
+
+    <h2 class="section-title reveal">
+      Viva a Copa em um<br>
+      ambiente de <em>verdade</em>
+    </h2>
+
+    <div class="divider reveal"></div>
+
+    <p class="exp-description reveal">
+      Transmissão ao vivo nos telões, clima de torcida, DJ ao vivo, gastronomia e uma experiência pensada para você assistir ao jogo do Brasil do jeito que ele merece.
+    </p>
+
+    <div class="exp-cards-grid reveal">
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Transmissão<br>ao vivo nos Telões
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Horario de<br>entrada a definir
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          DJ e clima<br>de Copa
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Experiência<br>Gastrobar
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CARDÁPIO — Cards com imagem
+     Cada card tem uma <img class="..."> no topo.
+     Instrução para substituir imagens está no comentário de cada card.
+══════════════════════════════════════ -->
+<section class="menu-section">
+  <div class="container">
+    <p class="section-label reveal">Cardápio de Petiscos</p>
+    <h2 class="section-title reveal">Para beliscar <em>torçendo</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="menu-grid reveal">
+
+      <!-- ══ PETISCO 1 — BOLINHO DE COSTELA
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+           Tamanho ideal: 400×300px
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/bolinho_costela.jpg" alt="Bolinho de Costela"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Bolinho de Costela</span></div>
+      </div>
+
+      <!-- ══ PETISCO 2 — BOLINHO DE CARNE
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/bolinho_carne.jpg" alt="Bolinho de Carne"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Bolinho de Carne</span></div>
+      </div>
+
+      <!-- ══ PETISCO 3 — TORRESMO
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/torresmo.jpg" alt="Torresmo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Torresmo</span></div>
+      </div>
+
+      <!-- ══ PETISCO 4 — DADINHO DE TAPIOCA
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/dadinho_tapioca.jpg" alt="Dadinho de Tapioca"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Dadinho de Tapioca</span></div>
+      </div>
+
+      <!-- ══ PETISCO 5 — COXINHAS
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/coxinhas.jpg" alt="Coxinhas"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Coxinhas</span></div>
+      </div>
+
+      <!-- ══ PETISCO 6 — PASTÉIS MISTOS
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/pasteis_mistos.jpg" alt="Pastéis Mistos"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Pastéis Mistos</span></div>
+      </div>
+
+      <!-- ══ PETISCO 7 — BATATA FRITA
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/batata_frita.jpg" alt="Batata Frita"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Batata Frita</span></div>
+      </div>
+
+      <!-- ══ PETISCO 8 — POLENTA FRITA
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/poolenta_frita.jpg" alt="Polenta Frita"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Polenta Frita</span></div>
+      </div>
+
+      <!-- ══ PETISCO 9 — FRANGO À PASSARINHO
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/frango_passarinho.jpg" alt="Frango à Passarinho"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Frango à Passarinho</span></div>
+      </div>
+
+      <!-- ══ PETISCO 10 — LINGUIÇA
+           TROQUE A IMAGEM: substitua o src abaixo pelo caminho da sua foto.
+      ══ -->
+      <div class="menu-card">
+        <div class="menu-img-wrap">
+          <img src="imagens/linguica.jpg" alt="Linguiça"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="menu-img-placeholder" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto aqui</span>
+          </div>
+        </div>
+        <div class="menu-card-label"><div class="menu-dot"></div><span>Linguiça</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     LOCALIZAÇÃO
+══════════════════════════════════════ -->
+<section class="location-section">
+  <div class="container">
+    <p class="section-label reveal">Onde nos encontrar</p>
+    <h2 class="section-title reveal">Venha <em>torcer</em> com a gente</h2>
+    <div class="divider reveal"></div>
+
+    <div class="location-grid">
+
+      <!-- Mapa Google Maps -->
+      <div class="location-map reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29242.888426004647!2d-46.567522422308244!3d-23.62723749026554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce43006f859d1b%3A0x16dfc2039c0d588e!2sPra%C3%A7a%20Figueiras!5e0!3m2!1sen!2sbr!4v1779820945227!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!-- Informações de endereço -->
+      <div class="location-info reveal">
+        <h3>Praça Figueiras<br><em>Gastrobar</em></h3>
+        <p class="location-address">
+          Rua das Figueiras, 1149<br>
+          Jardim<br>
+          Santo André — SP
+        </p>
+        <div class="location-badges">
+          <div class="loc-badge">🗓️ <strong>A definir</strong></div>
+          <div class="loc-badge">⏰ A partir das <strong>--</strong></div>
+          <div class="loc-badge">📍 <strong>Santo André – SP</strong></div>
+        </div>
+        <br>
+        <a href="#reserva" class="cta-btn" style="display:inline-block; margin-top:8px; animation:none;">
+          Reservar meu lugar
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FORMULÁRIO DE RESERVA
+══════════════════════════════════════ -->
+<section class="form-section" id="reserva">
+  <div class="container">
+
+    <div class="form-aside">
+      <p class="section-label reveal">LISTA DE ESPERA - Quartas DE FINAL</p>
+      <h2 class="reveal">Entre na lista de <em>espera</em> agora</h2>
+      <div class="divider reveal"></div>
+      <p class="reveal">
+        Preencha o formulário, nossa equipe entrará em contato pelo WhatsApp para confirmar tudo e garantir o seu lugar.
+      </p>
+      <div class="info-badge reveal">
+          <div>
+          <strong>Vagas limitadas!</strong>
+          Reserve agora e garanta sua experiência completa — petiscos, drinks, telão e muito mais.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <div id="form-container">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp / Telefone</label>
+            <input type="tel" id="telefone" placeholder="(11) 99999-9999" required />
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+          <label>Número de pessoas</label>
+
+          <input
+            type="number"
+            id="pessoas"
+            placeholder="Ex: 4"
+            min="1"
+            inputmode="numeric"
+            required
+          />
+          </div>
+          <div class="form-group">
+            <label>Como ficou sabendo?</label>
+            <select id="origem">
+              <option value="">Selecione</option>
+              <option>Instagram</option>
+              <option>WhatsApp / Indicação</option>
+              <option>Passando pelo local</option>
+              <option>Outros</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações (opcional)</label>
+          <textarea id="obs" placeholder="Tem alguma necessidade especial ou comentário?"></textarea>
+        </div>
+        <div class="form-terms">
+        <input type="checkbox" id="aceitePolitica" required>
+        <label for="aceitePolitica">
+          Eu aceito os termos da
+          <a href="politica-de-privacidade.html" target="_blank">
+            Política de Privacidade
+          </a>.
+        </label>
+      </div>
+        <button class="submit-btn" onclick="handleSubmit()">Quero Garantir Minha Reserva</button>
+        <p class="form-note">Após o envio, nossa equipe entrará em contato em até 24h para confirmar sua reserva. Vagas limitadas.</p>
+      </div>
+
+      <div class="success-msg" id="success-msg">
+        <div class="big-check">
+          <img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" class="success-flag">
+        </div>
+        <h3>Reserva solicitada!</h3>
+        <p>Recebemos seu cadastro! Nossa equipe entrará em contato em breve via WhatsApp ou telefone para confirmar sua reserva.<br><br><strong>#VemParaOPraça!</strong></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="logo-circle">
+  <img src="imagens/logo_padrao.png" alt="Praça Figueiras" class="logo-img">
+  </div>
+  <span class="hashtag">#VemParaOPraça</span>
+  <p><strong>Praça Figueiras Gastrobar</strong></p>
+  <p>Rua das Figueiras, 1149 - Jardim - Santo André - SP</p>
+</footer>
+
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Phone mask ──
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
+
+  // ── Form submit ──
+async function handleSubmit() {
+  const jogo = "Quartas de Final";
+  const dataJogo = "A definir";
+  const horarioJogo = "--";
+
+  const nome = document.getElementById('nome').value.trim();
+  const tel = document.getElementById('telefone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const pessoas = document.getElementById('pessoas').value.trim();
+  const origem = document.getElementById('origem').value;
+  const obs = document.getElementById('obs').value.trim();
+  const aceitePolitica = document.getElementById('aceitePolitica').checked;
+
+  if (!nome) {
+    alert('Por favor, preencha seu nome.');
+    return;
+  }
+
+  if (!tel) {
+    alert('Por favor, informe seu WhatsApp/telefone.');
+    return;
+  }
+
+  if (!email) {
+  alert('Por favor, informe seu e-mail.');
+  return;
+  }
+
+  if (!pessoas || pessoas <= 0) {
+    alert('Informe a quantidade de pessoas.');
+    return;
+  }
+
+  if (!aceitePolitica) {
+  alert('Você precisa aceitar a Política de Privacidade para continuar.');
+  return;
+}
+
+  const dados = {
+    jogo: jogo,
+    dataJogo: dataJogo,
+    horarioJogo: horarioJogo,
+    nome: nome,
+    telefone: tel,
+    email: email,
+    pessoas: pessoas,
+    origem: origem,
+    obs: obs,
+    aceitePolitica: aceitePolitica ? "Sim" : "Não"
+  };
+
+  fetch('https://script.google.com/macros/s/AKfycbyX0ijYWuUofz6iWgYwbIc-UTXYBeRpCkffC-VQMOoLJgdeN2kfwe-cZrgVJDPApnnk/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  });
+
+  document.getElementById('form-container').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('success-msg').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyX0ijYWuUofz6iWgYwbIc-UTXYBeRpCkffC-VQMOoLJgdeN2kfwe-cZrgVJDPApnnk/exec";
+const COMPANY_WHATSAPP = "551145090121";
+
+function openWhatsAppPopup() {
+  document.getElementById("whatsappPopup").classList.add("active");
+}
+
+function closeWhatsAppPopup() {
+  document.getElementById("whatsappPopup").classList.remove("active");
+}
+
+async function sendWhatsAppLead() {
+  const nome = document.getElementById("whatsNome").value.trim();
+  const telefone = document.getElementById("whatsTelefone").value.trim();
+  const email = document.getElementById("whatsEmail").value.trim();
+  const pessoas = document.getElementById("whatsPessoas").value.trim();
+  const aceite = document.getElementById("whatsAceite").checked;
+
+  if (!nome || !telefone || !email || !pessoas) {
+    alert("Preencha nome, WhatsApp, e-mail e quantidade de pessoas.");
+    return;
+  }
+
+  if (!aceite) {
+    alert("Você precisa aceitar a Política de Privacidade para continuar.");
+    return;
+  }
+
+  const submitBtn = document.querySelector(".whatsapp-popup-submit");
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Enviando...";
+
+  const leadData = {
+    jogo: "Brasil x Marrocos",
+    dataJogo: "13/06/2026",
+    horarioJogo: "19h",
+    nome: nome,
+    telefone: telefone,
+    email: email,
+    pessoas: pessoas,
+    origem: "Botão WhatsApp",
+    obs: "Lead enviado pelo pop-up flutuante de WhatsApp",
+    aceitePolitica: "Sim"
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(leadData)
+    });
+
+    const message = `
+Olá, Praça Figueiras! Quero informações sobre a reserva para assistir aos jogos da Copa.
+
+Meus dados:
+Nome: ${nome}
+WhatsApp: ${telefone}
+E-mail: ${email}
+Quantidade de pessoas: ${pessoas}
+
+Aguardo o atendimento.
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    closeWhatsAppPopup();
+
+    document.getElementById("whatsNome").value = "";
+    document.getElementById("whatsTelefone").value = "";
+    document.getElementById("whatsEmail").value = "";
+    document.getElementById("whatsPessoas").value = "";
+    document.getElementById("whatsAceite").checked = false;
+
+  } catch (error) {
+    alert("Não foi possível enviar seus dados. Tente novamente.");
+    console.error(error);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Falar agora no WhatsApp";
+  }
+}
+
+function maskWhatsPhone(input) {
+  let value = input.value.replace(/\D/g, "");
+
+  if (value.length > 11) {
+    value = value.slice(0, 11);
+  }
+
+  if (value.length <= 10) {
+    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+  } else {
+    value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+  }
+
+  input.value = value;
+}
+
+</script>
+
+<button class="whatsapp-floating-btn" onclick="openWhatsAppPopup()" aria-label="Falar no WhatsApp">
+  <span>WhatsApp</span>
+</button>
+
+<div id="whatsappPopup" class="whatsapp-popup">
+  <div class="whatsapp-popup-box">
+    <button class="whatsapp-popup-close" onclick="closeWhatsAppPopup()">×</button>
+
+    <p class="section-label">Atendimento rápido</p>
+    <h3>Fale com o Praça Figueiras</h3>
+
+    <p class="whatsapp-popup-text">
+      Preencha seus dados para iniciar o atendimento pelo WhatsApp.
+    </p>
+
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" id="whatsNome" placeholder="Seu nome">
+    </div>
+
+    <div class="form-group">
+      <label>WhatsApp</label>
+      <input 
+        type="tel" 
+        id="whatsTelefone" 
+        placeholder="(11) 90000-0000"
+        maxlength="15"
+        oninput="maskWhatsPhone(this)"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="whatsEmail" placeholder="seuemail@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Quantidade de pessoas</label>
+      <input type="number" id="whatsPessoas" min="1" placeholder="Ex: 4">
+    </div>
+
+    <label class="whatsapp-terms">
+  <input type="checkbox" id="whatsAceite">
+  <span>
+    Li e aceito a 
+    <a href="politica-de-privacidade.html" target="_blank">
+      Política de Privacidade
+    </a>.
+  </span>
+  </label>
+
+    <button class="whatsapp-popup-submit" onclick="sendWhatsAppLead()">
+      Falar agora no WhatsApp
+    </button>
+
+    <p class="whatsapp-popup-note">
+      Você será redirecionado para o WhatsApp com uma mensagem pronta.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

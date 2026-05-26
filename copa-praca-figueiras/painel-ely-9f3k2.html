@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel de Leads | Estação Praça</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/crm-ely-9f3k2.css">
+<script src="js/crm-ely-9f3k2.js"></script>
+
+</head>
+
+<body>
+    <div id="pipelineLoading" class="pipeline-loading">
+  <div class="pipeline-loading-box">
+    <div class="pipeline-spinner"></div>
+    <strong>Atualizando estágio do lead...</strong>
+    <span>Aguarde enquanto salvamos a alteração.</span>
+  </div>
+</div>
+
+    <div id="loginOverlay" class="login-overlay">
+  <div class="login-box">
+    <img src="imagens/logo_padrao.png" alt="Estação Praça" class="login-logo">
+
+    <p class="eyebrow">Acesso restrito</p>
+    <h2>Painel de Leads</h2>
+
+    <p class="login-text">
+      Digite a senha para acessar o painel gerencial.
+    </p>
+
+    <input type="password" id="adminPassword" placeholder="Senha de acesso">
+
+    <button onclick="checkPassword()">Entrar</button>
+
+    <span id="loginError">Senha incorreta. Tente novamente.</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container">
+    <div class="logo-area">
+      <img src="imagens/logo_padrao.png" alt="Estação Praça">
+      <div>
+        <p class="eyebrow">Painel Gerencial</p>
+        <h1>Leads da Copa do Mundo 2026</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container">
+
+    <div class="stats">
+      <div class="stat-card">
+        <span>Total de leads</span>
+        <strong id="totalLeads">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Respondidos</span>
+        <strong id="totalRespondidos">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Não respondidos</span>
+        <strong id="totalNaoRespondidos">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Reservas confirmadas</span>
+        <strong id="totalReservas">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Pagos</span>
+        <strong id="totalPagos">0</strong>
+      </div>
+    </div>
+
+    <h2 class="section-title">Jogos</h2>
+
+    <div class="games-filter-bar">
+  <div>
+    <label>Buscar jogo</label>
+    <input type="text" id="gameSearch" placeholder="Ex: Brasil, Marrocos, 13/06..." oninput="renderGames()">
+  </div>
+
+  <div>
+    <label>Ordenar por</label>
+    <select id="gameOrder" onchange="renderGames()">
+      <option value="data">Data do jogo</option>
+      <option value="leads">Mais leads</option>
+      <option value="pagos">Mais pagos</option>
+      <option value="reservas">Mais reservas</option>
+    </select>
+  </div>
+
+  <button class="clear-filters-btn" onclick="clearGameFilters()">Limpar</button>
+</div>
+
+    <div id="loading" class="loading">Carregando leads...</div>
+    <div id="gamesGrid" class="games-grid"></div>
+
+    <section id="tableArea" class="table-area">
+      <div class="table-header">
+        <h2 id="selectedGameTitle">Leads</h2>
+        <div class="view-actions">
+        <button class="view-btn active" id="tableViewBtn" onclick="showTableView()">Tabela</button>
+        <button class="view-btn" id="pipelineViewBtn" onclick="showPipelineView()">Pipeline</button>
+        <button class="view-btn" onclick="exportLeadsCSV()">
+        Exportar Excel
+        </button>
+        <button class="back-btn" onclick="closeTable()">Voltar aos jogos</button>
+        </div>
+      </div>
+
+      <div class="filters-bar">
+  <div class="filter-group">
+    <label>Buscar lead</label>
+    <input type="text" id="filterSearch" placeholder="Nome, telefone ou e-mail" oninput="applyFilters()">
+  </div>
+
+  <div class="filter-group">
+    <label>Estágio</label>
+    <select id="filterEstagio" onchange="applyFilters()">
+      <option value="">Todos</option>
+      <option>Novo Lead</option>
+      <option>Em Atendimento</option>
+      <option>Aguardando Retorno</option>
+      <option>Reserva Confirmada</option>
+      <option>Pagamento Pendente</option>
+      <option>Pago</option>
+      <option>Cancelado</option>
+      <option>Perdido</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Respondido</label>
+    <select id="filterRespondido" onchange="applyFilters()">
+      <option value="">Todos</option>
+      <option>Sim</option>
+      <option>Não</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Reserva</label>
+    <select id="filterReserva" onchange="applyFilters()">
+      <option value="">Todos</option>
+      <option>Sim</option>
+      <option>Não</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Pagamento</label>
+    <select id="filterPagamento" onchange="applyFilters()">
+      <option value="">Todos</option>
+      <option>Pendente</option>
+      <option>Pago</option>
+      <option>Cancelado</option>
+      <option>Não se aplica</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Responsável</label>
+    <select id="filterResponsavel" onchange="applyFilters()">
+      <option value="">Todos</option>
+    </select>
+  </div>
+
+  <button class="clear-filters-btn" onclick="clearFilters()">Limpar filtros</button>
+</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+            <th>Lead</th>
+            <th>Contato</th>
+            <th>Pessoas</th>
+            <th>Origem</th>
+            <th>Estágio</th>
+            <th>Respondido</th>
+            <th>Reserva</th>
+            <th>Pagamento</th>
+            <th>Valor</th>
+            <th>Responsável</th>
+            <th>Anotações</th>
+            <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTable"></tbody>
+        </table>
+      </div>
+      <div id="pipelineArea" class="pipeline-area"></div>
+    </section>
+
+  </div>
+</main>
+
+<div id="leadModal" class="lead-modal">
+  <div class="lead-modal-content">
+    <button class="modal-close" onclick="closeLeadModal()">×</button>
+
+    <div class="modal-header">
+      <p class="eyebrow">Detalhes do Lead</p>
+      <h2 id="modalLeadName">Nome do Lead</h2>
+      <p id="modalLeadGame"></p>
+    </div>
+
+    <div class="modal-grid">
+      <div class="modal-card">
+        <h3>Dados do cliente</h3>
+        <p><strong>Lead recebido em:</strong> <span id="modalDataEnvio"></span></p>
+        <p><strong>Telefone:</strong> <span id="modalTelefone"></span></p>
+        <p><strong>E-mail:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Pessoas:</strong> <span id="modalPessoas"></span></p>
+        <p><strong>Origem:</strong> <span id="modalOrigem"></span></p>
+        <p><strong>Observações:</strong> <span id="modalObs"></span></p>
+        <p><strong>Última atualização:</strong> <span id="modalUltimaAtualizacao"></span></p>
+      </div>
+
+      <div class="modal-card">
+        <h3>Status da reserva</h3>
+
+        <label>Estágio</label>
+        <select id="modalEstagio">
+          <option>Novo Lead</option>
+          <option>Em Atendimento</option>
+          <option>Aguardando Retorno</option>
+          <option>Reserva Confirmada</option>
+          <option>Pagamento Pendente</option>
+          <option>Pago</option>
+          <option>Cancelado</option>
+          <option>Perdido</option>
+        </select>
+
+        <label>Respondido</label>
+        <select id="modalRespondido">
+          <option>Não</option>
+          <option>Sim</option>
+        </select>
+
+        <label>Reserva Confirmada</label>
+        <select id="modalReserva">
+          <option>Não</option>
+          <option>Sim</option>
+        </select>
+
+        <label>Pagamento</label>
+        <select id="modalPagamento">
+          <option>Pendente</option>
+          <option>Pago</option>
+          <option>Cancelado</option>
+          <option>Não se aplica</option>
+        </select>
+      </div>
+
+      <div class="modal-card">
+        <h3>Gestão interna</h3>
+
+        <label>Valor Pago</label>
+        <input id="modalValor" placeholder="R$">
+
+        <label>Responsável</label>
+        <input id="modalResponsavel" placeholder="Nome do responsável">
+
+        <label>Anotações Internas</label>
+        <textarea id="modalAnotacoes" placeholder="Histórico do atendimento, combinações, observações internas..."></textarea>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <a id="modalWhatsapp" class="whatsapp-btn" target="_blank">Abrir WhatsApp</a>
+      <button class="save-btn" onclick="saveLeadFromModal()">Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<div id="leadToast" class="lead-toast">
+  <button class="lead-toast-close" onclick="hideLeadToast()">×</button>
+
+  <span class="lead-toast-label">Novo lead recebido</span>
+  <strong id="leadToastName">Nome do lead</strong>
+  <p id="leadToastInfo">Jogo • Pessoas</p>
+
+  <button class="lead-toast-btn" onclick="goToNewestLead()">
+    Ver novo lead
+  </button>
+</div>
+
+<footer class="ely-footer">
+  <div class="ely-footer-gradient"></div>
+
+  <div class="ely-footer-content">
+    <img 
+      src="imagens/logo_ely.png" 
+      alt="Agência Ely"
+      class="ely-footer-logo"
+    >
+
+    <p class="ely-footer-title">
+      Ely CRM
+    </p>
+
+    <span class="ely-footer-text">
+      Desenvolvido por Agência Ely
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

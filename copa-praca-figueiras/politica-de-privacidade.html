@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade | Praça Figueiras Gastrobar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --vinho: #722632;
+  --preto: #090909;
+  --dourado: #DAA520;
+  --creme: #F5EDD6;
+  --vinho-claro: #963646;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--preto);
+  color: var(--creme);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .5;
+}
+
+.policy-hero {
+  min-height: 45vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 80px 20px 60px;
+  overflow: hidden;
+}
+
+.policy-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(218,165,32,.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(114,38,50,.42) 0%, transparent 60%),
+    linear-gradient(160deg, #090909 0%, #1b0d11 45%, #090909 100%);
+}
+
+.policy-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-55deg, transparent, transparent 60px, rgba(218,165,32,.03) 60px, rgba(218,165,32,.03) 61px);
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid rgba(218,165,32,.5);
+  background: rgba(22,22,23,.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  box-shadow: 0 0 40px rgba(218,165,32,.15);
+}
+
+.logo-img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 7vw, 72px);
+  font-weight: 900;
+  line-height: .98;
+  color: #fff;
+  max-width: 780px;
+}
+
+h1 span {
+  color: var(--dourado);
+}
+
+.hero-text {
+  max-width: 720px;
+  margin-top: 24px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(245,237,214,.72);
+}
+
+.policy-section {
+  padding: 80px 20px;
+  background: linear-gradient(170deg, #14090c 0%, #090909 100%);
+  border-top: 1px solid rgba(218,165,32,.12);
+}
+
+.policy-card {
+  background:
+    radial-gradient(circle at top right, rgba(114,38,50,.14), transparent 35%),
+    rgba(255,255,255,.035);
+  border: 1px solid rgba(218,165,32,.18);
+  border-radius: 12px;
+  padding: 48px;
+  backdrop-filter: blur(10px);
+}
+
+.policy-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 40px);
+  color: #fff;
+  margin: 42px 0 16px;
+}
+
+.policy-card h2:first-child {
+  margin-top: 0;
+}
+
+.policy-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--dourado);
+  margin: 28px 0 12px;
+  text-transform: uppercase;
+}
+
+.policy-card p,
+.policy-card li {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(245,237,214,.72);
+}
+
+.policy-card ul {
+  margin: 12px 0 22px 22px;
+}
+
+.policy-card strong {
+  color: rgba(245,237,214,.95);
+}
+
+.policy-card a {
+  color: var(--dourado);
+  text-decoration: underline;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--dourado);
+  margin: 22px 0 34px;
+}
+
+.update-box {
+  background: rgba(218,165,32,.1);
+  border: 1px solid rgba(218,165,32,.3);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin-bottom: 36px;
+  color: rgba(245,237,214,.75);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 36px;
+  background: linear-gradient(135deg, var(--dourado), #f3c64d);
+  color: var(--preto);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 15px 32px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: opacity .2s, transform .2s, background .2s;
+}
+
+.back-btn:hover {
+  background: var(--vinho);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+footer {
+  background: #0a0a0a;
+  border-top: 1px solid rgba(218,165,32,.12);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+footer p {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(245,237,214,.35);
+}
+
+footer strong {
+  color: rgba(245,237,214,.6);
+}
+
+@media (max-width: 640px) {
+  .policy-card {
+    padding: 32px 22px;
+  }
+
+  .policy-hero {
+    padding-top: 60px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="policy-hero">
+  <div class="container">
+    <div class="logo-circle">
+      <img src="imagens/logo_padrao.png" alt="Praça Figueiras Gastrobar" class="logo-img">
+    </div>
+
+    <p class="section-label">Praça Figueiras Gastrobar</p>
+    <h1>Política de <span>Privacidade</span></h1>
+
+    <p class="hero-text">
+      Esta Política de Privacidade explica como coletamos, utilizamos, armazenamos e protegemos os dados pessoais fornecidos pelos usuários em nossas páginas, formulários e campanhas digitais.
+    </p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <div class="container">
+    <div class="policy-card">
+
+      <div class="update-box">
+        <strong>Última atualização:</strong> 26 de maio de 2026<br>
+        Esta política se aplica às páginas e formulários digitais do Praça Figueiras Gastrobar.
+      </div>
+
+      <h2>1. Quem somos</h2>
+      <div class="divider"></div>
+
+      <p>
+        O Praça Figueiras Gastrobar é responsável pelo tratamento dos dados pessoais coletados por meio de seus formulários digitais, páginas de reserva, campanhas promocionais e canais de atendimento.
+      </p>
+
+      <p>
+        Para fins desta Política de Privacidade, quando mencionarmos “Praça Figueiras”, “nós” ou “nosso”, estamos nos referindo ao estabelecimento responsável pela experiência, atendimento e comunicação com os clientes.
+      </p>
+
+      <h2>2. Quais dados coletamos</h2>
+
+      <p>
+        Podemos coletar os dados fornecidos voluntariamente pelo usuário ao preencher nossos formulários, incluindo:
+      </p>
+
+      <ul>
+        <li>Nome completo;</li>
+        <li>Telefone ou WhatsApp;</li>
+        <li>E-mail;</li>
+        <li>Quantidade de pessoas para reserva;</li>
+        <li>Informações sobre como conheceu a campanha;</li>
+        <li>Observações enviadas pelo próprio usuário;</li>
+        <li>Data, horário e evento relacionado à solicitação de reserva;</li>
+        <li>Confirmação de aceite desta Política de Privacidade.</li>
+      </ul>
+
+      <p>
+        Também podemos coletar dados técnicos básicos de navegação, como endereço IP, tipo de dispositivo, navegador e informações de acesso, quando utilizados serviços de hospedagem, análise ou ferramentas de publicidade.
+      </p>
+
+      <h2>3. Para quais finalidades usamos seus dados</h2>
+
+      <p>
+        Os dados coletados poderão ser utilizados para:
+      </p>
+
+      <ul>
+        <li>Registrar solicitações de reserva;</li>
+        <li>Entrar em contato pelo WhatsApp, telefone ou e-mail para confirmação da reserva;</li>
+        <li>Organizar a lista de participantes e capacidade do evento;</li>
+        <li>Prestar atendimento ao cliente;</li>
+        <li>Enviar informações relacionadas ao evento, promoção ou experiência solicitada;</li>
+        <li>Melhorar nossas campanhas, comunicações e experiência de atendimento;</li>
+        <li>Cumprir obrigações legais ou regulatórias, quando aplicável;</li>
+        <li>Proteger nossos direitos em eventuais demandas administrativas, judiciais ou extrajudiciais.</li>
+      </ul>
+
+      <h2>4. Base legal para o tratamento</h2>
+
+      <p>
+        O tratamento dos dados pessoais é realizado de acordo com a Lei Geral de Proteção de Dados Pessoais, Lei nº 13.709/2018.
+      </p>
+
+      <p>
+        As principais bases legais utilizadas podem incluir:
+      </p>
+
+      <ul>
+        <li><strong>Execução de contrato ou procedimentos preliminares:</strong> para registrar e confirmar reservas solicitadas pelo usuário;</li>
+        <li><strong>Consentimento:</strong> quando o usuário aceita esta Política de Privacidade e envia seus dados voluntariamente;</li>
+        <li><strong>Legítimo interesse:</strong> para melhorar atendimento, comunicação e segurança das operações;</li>
+        <li><strong>Cumprimento de obrigação legal ou regulatória:</strong> quando houver exigência legal aplicável.</li>
+      </ul>
+
+      <h2>5. Compartilhamento de dados</h2>
+
+      <p>
+        Os dados pessoais poderão ser acessados por equipes internas responsáveis por atendimento, reservas, marketing e gestão do evento.
+      </p>
+
+      <p>
+        Também poderemos utilizar ferramentas de terceiros para hospedagem da página, armazenamento das informações, análise de desempenho e comunicação, como plataformas de formulário, planilhas, serviços de nuvem, ferramentas de publicidade e atendimento.
+      </p>
+
+      <p>
+        O Praça Figueiras não vende dados pessoais dos usuários.
+      </p>
+
+      <h2>6. Armazenamento e segurança</h2>
+
+      <p>
+        Os dados serão armazenados pelo período necessário para cumprir as finalidades descritas nesta Política de Privacidade, incluindo controle de reservas, histórico de atendimento, obrigações legais e melhoria das campanhas.
+      </p>
+
+      <p>
+        Adotamos medidas razoáveis de segurança para proteger os dados contra acesso não autorizado, uso indevido, alteração, perda ou divulgação indevida.
+      </p>
+
+      <p>
+        Apesar dos esforços de segurança, nenhum sistema digital é totalmente imune a riscos. Por isso, recomendamos que o usuário evite enviar informações sensíveis ou desnecessárias nos campos de observação.
+      </p>
+
+      <h2>7. Direitos do titular dos dados</h2>
+
+      <p>
+        Conforme a LGPD, o titular dos dados pessoais pode solicitar:
+      </p>
+
+      <ul>
+        <li>Confirmação da existência de tratamento de dados;</li>
+        <li>Acesso aos dados pessoais tratados;</li>
+        <li>Correção de dados incompletos, inexatos ou desatualizados;</li>
+        <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade com a LGPD;</li>
+        <li>Portabilidade dos dados, quando aplicável;</li>
+        <li>Informações sobre o compartilhamento de dados;</li>
+        <li>Revogação do consentimento, quando o tratamento tiver como base o consentimento;</li>
+        <li>Eliminação dos dados tratados com base no consentimento, respeitadas as hipóteses legais de conservação.</li>
+      </ul>
+
+      <h2>8. Como solicitar seus direitos</h2>
+
+      <p>
+        Para solicitar informações, correções ou exclusão de dados pessoais, o titular poderá entrar em contato pelos canais oficiais do Praça Figueiras Gastrobar.
+      </p>
+
+      <p>
+        E-mail para contato:
+        <a href="mailto:contato@pracafigueiras.com.br">contato@pracafigueiras.com.br</a>
+      </p>
+
+      <p>
+        Caso este e-mail ainda não esteja ativo, substitua pelo canal oficial utilizado pelo estabelecimento.
+      </p>
+
+      <h2>9. Cookies e tecnologias de navegação</h2>
+
+      <p>
+        Podemos utilizar cookies e tecnologias semelhantes para melhorar a navegação, medir desempenho da página, entender a origem dos acessos e otimizar campanhas de marketing.
+      </p>
+
+      <p>
+        O usuário pode configurar seu navegador para bloquear cookies, mas isso poderá impactar algumas funcionalidades da página.
+      </p>
+
+      <h2>10. Links externos</h2>
+
+      <p>
+        Nossas páginas podem conter links para sites de terceiros, como redes sociais, mapas, plataformas de atendimento ou ferramentas externas.
+      </p>
+
+      <p>
+        Esta Política de Privacidade não se aplica a sites, sistemas ou serviços de terceiros. Recomendamos que o usuário consulte as políticas de privacidade dessas plataformas.
+      </p>
+
+      <h2>11. Dados de menores de idade</h2>
+
+      <p>
+        Nossos formulários de reserva são destinados a pessoas capazes de realizar solicitações em nome próprio ou de seu grupo. Caso dados de menores sejam eventualmente informados, eles deverão ser fornecidos por pais, responsáveis legais ou adultos autorizados.
+      </p>
+
+      <h2>12. Alterações nesta política</h2>
+
+      <p>
+        Esta Política de Privacidade poderá ser atualizada a qualquer momento para refletir mudanças legais, operacionais ou melhorias em nossos processos.
+      </p>
+
+      <p>
+        A versão mais recente estará sempre disponível nesta página.
+      </p>
+
+      <h2>13. Disposições finais</h2>
+
+      <p>
+        Ao preencher nossos formulários e aceitar esta Política de Privacidade, o usuário declara estar ciente sobre a forma como seus dados serão tratados para as finalidades aqui descritas.
+      </p>
+
+      <a href="index.html" class="back-btn">Voltar para a página principal</a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Praça Figueiras Gastrobar</strong></p>
+  <p>Rua das Figueiras, 1149 - Jardim - Santo André - SP</p>
+</footer>
+
+</body>
+</html>

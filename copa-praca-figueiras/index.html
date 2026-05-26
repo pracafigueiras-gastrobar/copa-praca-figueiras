@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Copa do Mundo no Praça Figueiras Gastrobar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --vinho: #722632;
+  --preto: #090909;
+  --dourado: #DAA520;
+  --creme: #F5EDD6;
+  --vinho-claro: #963646;
+  --verde: #1F564C;
+  --verde-claro: #2a7a6c;
+  --amarelo-brasil: #FFDF00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--preto);
+  color: var(--creme);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .5;
+}
+
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 70px 20px 90px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(218,165,32,.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(114,38,50,.42) 0%, transparent 60%),
+    linear-gradient(160deg, #090909 0%, #1b0d11 42%, #090909 100%);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(218,165,32,.035) 60px,
+    rgba(218,165,32,.035) 61px
+  );
+}
+
+.ball {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ball-1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(218,165,32,.12) 0%, transparent 70%);
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.ball-2 {
+  width: 340px;
+  height: 340px;
+  bottom: -90px;
+  left: -70px;
+  background: radial-gradient(circle, rgba(31,86,76,.28) 0%, transparent 70%);
+  animation: pulse 8s ease-in-out infinite reverse;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.14); opacity: .7; }
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr .95fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.logo-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid rgba(218,165,32,.5);
+  background: rgba(22,22,23,.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  box-shadow: 0 0 40px rgba(218,165,32,.15);
+}
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 7vw, 86px);
+  font-weight: 900;
+  line-height: .94;
+  color: #fff;
+  max-width: 760px;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--dourado);
+}
+
+.hero-text {
+  max-width: 640px;
+  color: rgba(245,237,214,.72);
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 26px 0 34px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--vinho);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 16px 34px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 8px 30px rgba(114,38,50,.38);
+}
+
+.cta-btn:hover {
+  background: var(--vinho-claro);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(114,38,50,.48);
+}
+
+.secondary-btn {
+  display: inline-block;
+  background: transparent;
+  color: var(--dourado);
+  border: 1px solid rgba(218,165,32,.45);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+
+.secondary-btn:hover {
+  background: rgba(218,165,32,.10);
+  transform: translateY(-2px);
+}
+
+.hero-panel {
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(218,165,32,.22);
+  border-radius: 18px;
+  padding: 30px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 100px rgba(0,0,0,.35);
+}
+
+.panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.panel-title em {
+  font-style: normal;
+  color: var(--dourado);
+}
+
+.panel-text {
+  color: rgba(245,237,214,.65);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.panel-list {
+  display: grid;
+  gap: 12px;
+}
+
+.panel-item {
+  background: rgba(0,0,0,.24);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.panel-item strong {
+  display: block;
+  color: var(--dourado);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.panel-item span {
+  color: rgba(245,237,214,.72);
+  font-size: 14px;
+}
+
+.games-section {
+  padding: 90px 20px 100px;
+  background: linear-gradient(170deg, #090909 0%, #14090c 100%);
+  border-top: 1px solid rgba(218,165,32,.15);
+  border-bottom: 1px solid rgba(218,165,32,.15);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5vw, 58px);
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--dourado);
+}
+
+.section-description {
+  max-width: 720px;
+  color: rgba(245,237,214,.68);
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 44px;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--dourado);
+  margin-bottom: 34px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.game-card {
+  background:
+    radial-gradient(circle at top right, rgba(218,165,32,.08), transparent 35%),
+    rgba(255,255,255,.04);
+  border: 1px solid rgba(218,165,32,.18);
+  border-radius: 16px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s, border-color .25s, background .25s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(218,165,32,.55);
+  background:
+    radial-gradient(circle at top right, rgba(218,165,32,.12), transparent 35%),
+    rgba(255,255,255,.06);
+}
+
+.game-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(31,86,76,.35);
+  border: 1px solid rgba(31,86,76,.55);
+  color: rgba(245,237,214,.9);
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.game-status.future {
+  background: rgba(218,165,32,.10);
+  border-color: rgba(218,165,32,.32);
+  color: var(--dourado);
+}
+
+.game-status.locked {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+  color: rgba(245,237,214,.5);
+}
+
+.flags-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.flag-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.flag-img {
+  width: 25px;
+  height: 17px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.vs-badge {
+  font-family: 'Playfair Display', serif;
+  color: var(--dourado);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.game-card h3 {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.game-info {
+  color: rgba(245,237,214,.68);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.game-info strong {
+  color: var(--dourado);
+}
+
+.game-card .cta-btn {
+  width: 100%;
+  text-align: center;
+  padding: 14px 18px;
+  font-size: 15px;
+}
+
+.disabled-btn {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  background: rgba(255,255,255,.06);
+  color: rgba(245,237,214,.38);
+  border: 1px solid rgba(255,255,255,.10);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  border-radius: 5px;
+  cursor: not-allowed;
+}
+
+.experience-section {
+  padding: 90px 20px;
+  background: var(--preto);
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.exp-card {
+  background: #14090c;
+  border: 1px solid rgba(218,165,32,.18);
+  border-radius: 12px;
+  padding: 28px 24px;
+  transition: transform .2s, border-color .2s;
+}
+
+.exp-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(218,165,32,.45);
+}
+
+.exp-card strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #fff;
+  font-size: 25px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.exp-line {
+  width: 42px;
+  height: 3px;
+  background: var(--dourado);
+}
+
+.location-section {
+  background: linear-gradient(170deg, #14090c 0%, #090909 100%);
+  padding: 90px 20px;
+  border-top: 1px solid rgba(218,165,32,.12);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.location-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(218,165,32,.18);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.location-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.location-card h2 em {
+  color: var(--dourado);
+  font-style: normal;
+}
+
+.location-card p {
+  color: rgba(245,237,214,.68);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.location-map {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(218,165,32,.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+  line-height: 0;
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display: block;
+}
+
+footer {
+  background: #0a0a0a;
+  border-top: 1px solid rgba(218,165,32,.12);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+footer .logo-circle {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 16px;
+  border-color: rgba(218,165,32,.3);
+}
+
+footer .logo-img {
+  width: 50px;
+  height: 50px;
+}
+
+footer p {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: rgba(245,237,214,.35);
+}
+
+footer strong {
+  color: rgba(245,237,214,.6);
+}
+
+footer .hashtag {
+  color: var(--dourado);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 0;
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .hero-grid,
+  .location-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .experience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding-top: 50px;
+  }
+
+  .games-grid,
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-circle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-left {
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .flags-row {
+    flex-wrap: wrap;
+  }
+
+  .game-card h3 {
+    font-size: 27px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="ball ball-1"></div>
+  <div class="ball ball-2"></div>
+
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="hero-left">
+        <div class="logo-circle">
+          <img src="imagens/logo_padrao.png" alt="Praça Figueiras Gastrobar" class="logo-img">
+        </div>
+
+        <p class="section-label">Copa do Mundo 2026 — Praça Figueiras Gastrobar</p>
+
+        <h1 class="hero-title">
+          Escolha seu jogo.<br>
+          <span>Viva a Copa.</span>
+        </h1>
+
+        <p class="hero-text">
+          Transmissão ao vivo nos telões, clima de torcida, gastronomia, promoções especiais e uma experiência completa para acompanhar o Brasil do jeito que a Copa merece.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#jogos" class="cta-btn">Ver jogos disponíveis</a>
+          <a href="#experiencia" class="secondary-btn">Conhecer experiência</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h2 class="panel-title">
+          Uma Copa.<br>
+          <em>Várias experiências.</em>
+        </h2>
+
+        <p class="panel-text">
+          Selecione o jogo que deseja assistir e garanta sua reserva para viver esse momento com o Praça Figueiras.
+        </p>
+
+        <div class="panel-list">
+          <div class="panel-item">
+            <strong>Fase de grupos</strong>
+            <span>Brasil x Marrocos, Brasil x Haiti e Brasil x Escócia.</span>
+          </div>
+
+          <div class="panel-item">
+            <strong>Próximas fases</strong>
+            <span>Oitavas, quartas, semifinal e final serão liberadas conforme avanço da seleção.</span>
+          </div>
+
+          <div class="panel-item">
+            <strong>Reservas limitadas</strong>
+            <span>Escolha o jogo e preencha sua solicitação de reserva.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="games-section" id="jogos">
+  <div class="container">
+    <p class="section-label">Jogos do Brasil</p>
+
+    <h2 class="section-title">
+      Escolha o jogo e<br>
+      <em>garanta sua reserva</em>
+    </h2>
+
+    <div class="divider"></div>
+
+    <p class="section-description">
+      A fase de grupos já está disponível para reservas. As próximas fases serão liberadas conforme a classificação do Brasil na competição.
+    </p>
+
+    <div class="games-grid">
+
+      <article class="game-card">
+        <span class="game-status">Disponível para reserva</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill"><img src="https://flagcdn.com/ma.svg" alt="Marrocos" class="flag-img"> Marrocos</div>
+        </div>
+
+        <h3>Brasil x Marrocos</h3>
+
+        <p class="game-info">
+          <strong>Sábado, 13 de junho</strong><br>
+          19 horas
+        </p>
+
+        <a href="brasil-marrocos.html" class="cta-btn">Reservar este jogo</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status">Disponível para reserva</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill"><img src="https://flagcdn.com/ht.svg" alt="Haiti" class="flag-img"> Haiti</div>
+        </div>
+
+        <h3>Brasil x Haiti</h3>
+
+        <p class="game-info">
+          <strong>Sexta-feira, 19 de junho</strong><br>
+          21h30
+        </p>
+
+        <a href="brasil-haiti.html" class="cta-btn">Reservar este jogo</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status">Disponível para reserva</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill"><img src="https://flagcdn.com/gb-sct.svg" alt="Escócia" class="flag-img"> Escócia</div>
+        </div>
+
+        <h3>Brasil x Escócia</h3>
+
+        <p class="game-info">
+          <strong>Quarta-feira, 24 de junho</strong><br>
+          19 horas
+        </p>
+
+        <a href="brasil-escocia.html" class="cta-btn">Reservar este jogo</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status future">Em breve - Estamos na torcida!</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill">A definir</div>
+        </div>
+
+        <h3>Oitavas de final</h3>
+
+        <p class="game-info">
+          <strong>Data a definir</strong><br>
+          Aguardando classificação
+        </p>
+
+        <a href="oitavas.html" class="cta-btn">Entrar na lista</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status future">Em breve - Estamos na torcida!</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill">A definir</div>
+        </div>
+
+        <h3>Quartas de final</h3>
+
+        <p class="game-info">
+          <strong>Data a definir</strong><br>
+          Aguardando classificação
+        </p>
+
+        <a href="quartas.html" class="cta-btn">Entrar na lista</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status future">Em breve - Estamos na torcida!</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill">A definir</div>
+        </div>
+
+        <h3>Semifinal</h3>
+
+        <p class="game-info">
+          <strong>Data a definir</strong><br>
+          Aguardando classificação
+        </p>
+
+        <a href="semi.html" class="cta-btn">Entrar na lista</a>
+      </article>
+
+      <article class="game-card">
+        <span class="game-status future">Em breve - Estamos na torcida!</span>
+
+        <div class="flags-row">
+          <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Brasil" class="flag-img"> Brasil</div>
+          <span class="vs-badge">VS</span>
+          <div class="flag-pill">A definir</div>
+        </div>
+
+        <h3>Final</h3>
+
+        <p class="game-info">
+          <strong>Data a definir</strong><br>
+          Aguardando campanha da seleção
+        </p>
+
+        <a href="final.html" class="cta-btn">Entrar na lista</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="experience-section" id="experiencia">
+  <div class="container">
+    <p class="section-label">Muito além do jogo</p>
+
+    <h2 class="section-title">
+      A experiência completa<br>
+      <em>para torcer pelo Brasil</em>
+    </h2>
+
+    <div class="divider"></div>
+
+    <p class="section-description">
+      O Praça Figueiras preparou uma estrutura especial para transformar cada partida em um momento memorável.
+    </p>
+
+    <div class="experience-grid">
+      <div class="exp-card">
+        <strong>Transmissão ao vivo nos telões</strong>
+        <div class="exp-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <strong>Rodízio de boteco nos jogos</strong>
+        <div class="exp-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <strong>Drinks com valores especiais</strong>
+        <div class="exp-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <strong>Sorteio de prêmios</strong>
+        <div class="exp-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="location-section">
+  <div class="container">
+    <div class="location-grid">
+
+      <div class="location-card">
+        <p class="section-label">Onde assistir</p>
+
+        <h2>Praça Figueiras<br><em>Gastrobar</em></h2>
+
+        <p>
+          Rua das Figueiras, 1149<br>
+          Jardim<br>
+          Santo André - SP
+        </p>
+
+        <br>
+
+        <a href="#jogos" class="cta-btn">Escolher meu jogo</a>
+      </div>
+
+      <div class="location-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29242.888426004647!2d-46.567522422308244!3d-23.62723749026554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce43006f859d1b%3A0x16dfc2039c0d588e!2sPra%C3%A7a%20Figueiras!5e0!3m2!1sen!2sbr!4v1779820945227!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo-circle">
+    <img src="imagens/logo_padrao.png" alt="Praça Figueiras Gastrobar" class="logo-img">
+  </div>
+
+  <span class="hashtag">#VemParaOPraça</span>
+  <p><strong>Praça Figueiras Gastrobar</strong></p>
+  <p>Rua das Figueiras, 1149 - Jardim - Santo André - SP</p>
+</footer>
+
+</body>
+</html>
