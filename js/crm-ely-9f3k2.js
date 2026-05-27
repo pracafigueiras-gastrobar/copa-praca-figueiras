@@ -215,7 +215,7 @@ function renderGames() {
       reservas: leads.filter(l => l["Reserva Confirmada"] === "Sim").length,
       pagos: leads.filter(l => l["Pagamento"] === "Pago").length,
       pessoasConfirmadas: getConfirmedPeopleCount(leads),
-      capacidade: 200
+      capacidade: 130
     };
   });
 
@@ -856,7 +856,7 @@ async function saveLead(rowNumber) {
   }
 }
 
-const ADMIN_PASSWORD = "EstacaoCopa2026";
+const ADMIN_PASSWORD = "FigueirasCopa2026";
 
 function checkPassword() {
   const password = document.getElementById("adminPassword").value;
