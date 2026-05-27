@@ -621,6 +621,72 @@ footer .hashtag {
     font-size: 27px;
   }
 }
+
+.hero-offer {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  margin: 14px 0 30px;
+  padding: 18px 24px;
+
+  background: rgba(0,0,0,.24);
+  border: 1px solid rgba(218,165,32,.18);
+  border-radius: 14px;
+
+  backdrop-filter: blur(8px);
+
+  max-width: 640px;
+}
+
+.offer-price {
+  min-width: 170px;
+
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+
+  color: var(--dourado);
+}
+
+.offer-info {
+  flex: 1;
+}
+
+.offer-info strong {
+  display: block;
+
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #fff;
+
+  margin-bottom: 6px;
+}
+
+.offer-info span {
+  color: rgba(245,237,214,.72);
+
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+@media (max-width: 620px) {
+  .hero-offer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .offer-price {
+    min-width: auto;
+    font-size: 40px;
+  }
+}
 </style>
 </head>
 
@@ -665,6 +731,19 @@ footer .hashtag {
         <p class="panel-text">
           Selecione o jogo que deseja assistir e garanta sua reserva para viver esse momento com o Praça Figueiras.
         </p>
+
+        <div class="hero-offer">
+  <div class="offer-price">
+    R$99,90
+  </div>
+
+  <div class="offer-info">
+    <strong>Ingresso com rodízio incluso</strong>
+    <span>
+      O ingresso dá direito ao rodízio de boteco, participação nos sorteios e valores especiais nos drinks.
+    </span>
+  </div>
+</div>
 
         <div class="panel-list">
           <div class="panel-item">
