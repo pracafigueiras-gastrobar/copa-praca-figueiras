@@ -1049,6 +1049,16 @@ footer .hashtag {
   <p><strong>Praça Figueiras Gastrobar</strong></p>
   <p>Rua das Figueiras, 1149 - Jardim - Santo André - SP</p>
 </footer>
-
+<script>
+function trackGameClick(nomeJogo, slugJogo) {
+  if (typeof fbq !== 'undefined') {
+    fbq('trackCustom', 'CliqueJogoCopa', {
+      content_name: nomeJogo,
+      content_category: 'Copa 2026',
+      jogo_slug: slugJogo
+    });
+  }
+}
+</script>
 </body>
 </html>
