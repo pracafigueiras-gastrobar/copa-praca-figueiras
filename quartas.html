@@ -18,7 +18,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1900903090508472');
 fbq('track', 'PageView');
-fbq('track', 'Lead');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1900903090508472&ev=PageView&noscript=1"
@@ -607,6 +606,20 @@ async function handleSubmit() {
     body: JSON.stringify(dados)
   });
 
+      const valorReserva = Number(pessoas) * 99.90;
+
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: leadData.jogo,
+          content_category: 'Copa 2026',
+          value: valorReserva,
+          currency: 'BRL',
+          num_items: Number(pessoas)
+        });
+      }
+
+      window.open(whatsappUrl, "_blank");
+
   document.getElementById('form-container').style.display = 'none';
   document.getElementById('success-msg').style.display = 'block';
   document.getElementById('success-msg').scrollIntoView({
@@ -682,6 +695,18 @@ Aguardo o atendimento.
     `.trim();
 
     const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+    const valorReserva = Number(pessoas) * 99.90;
+
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        content_name: leadData.jogo,
+        content_category: 'Copa 2026',
+        value: valorReserva,
+        currency: 'BRL',
+        num_items: Number(pessoas)
+      });
+    }
 
     window.open(whatsappUrl, "_blank");
 
