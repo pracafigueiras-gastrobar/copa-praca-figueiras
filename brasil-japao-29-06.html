@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasil x Japão no Praça Figueiras Gastrobar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style_jogos.css">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1900903090508472');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1900903090508472&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+  /* Modal do cardápio em PDF */
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  .menu-trigger-card {
+    cursor: pointer;
+    position: relative;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .menu-trigger-card:hover,
+  .menu-trigger-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .32);
+    outline: none;
+  }
+
+  .cardapio-click-hint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(218, 165, 32, .45);
+    color: #DAA520;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .menu-pdf-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, .78);
+    backdrop-filter: blur(8px);
+  }
+
+  .menu-pdf-modal.active {
+    display: flex;
+  }
+
+  .menu-pdf-modal-box {
+    width: min(1100px, 100%);
+    max-height: 94vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(218, 165, 32, .45);
+    border-radius: 24px;
+    background: #11100b;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, .55);
+  }
+
+  .menu-pdf-modal-header {
+    position: relative;
+    padding: 22px 64px 18px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+    background: linear-gradient(135deg, rgba(218, 165, 32, .18), rgba(0, 0, 0, 0));
+  }
+
+  .menu-pdf-modal-header .section-label {
+    margin-bottom: 4px;
+  }
+
+  .menu-pdf-modal-header h3 {
+    margin: 0;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1;
+  }
+
+  .menu-pdf-modal-header p {
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, .74);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .menu-pdf-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .35);
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .menu-pdf-close:hover {
+    background: rgba(218, 165, 32, .22);
+    border-color: rgba(218, 165, 32, .55);
+  }
+
+  .menu-pdf-viewer {
+    width: 100%;
+    height: min(68vh, 720px);
+    background: #242424;
+  }
+
+  .menu-pdf-viewer iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #242424;
+  }
+
+  .menu-pdf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 20px 22px;
+    border-top: 1px solid rgba(255, 255, 255, .10);
+    background: rgba(0, 0, 0, .28);
+  }
+
+  .menu-pdf-actions .cta-btn {
+    margin: 0;
+    animation: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .menu-pdf-modal {
+      padding: 12px;
+    }
+
+    .menu-pdf-modal-box {
+      max-height: 96vh;
+      border-radius: 18px;
+    }
+
+    .menu-pdf-modal-header {
+      padding: 18px 56px 14px 18px;
+    }
+
+    .menu-pdf-modal-header p {
+      font-size: 14px;
+    }
+
+    .menu-pdf-viewer {
+      height: 60vh;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="ball ball-1"></div>
+  <div class="ball ball-2"></div>
+
+  <div class="hero-content">
+    <div class="logo-circle">
+  <img src="imagens/logo_padrao.png" alt="Praça Figueiras" class="logo-img">
+  </div>
+
+    <p class="hero-eyebrow">Copa do Mundo 2026 — 16 avos de final</p>
+    <h1 class="hero-title">BRASIL X<br><span>JAPÃO</span></h1>
+    <p class="hero-sub">Transmissão ao vivo nos telões · Cardápio normal da casa · Ambiente Praça Figueiras</p>
+
+    <div class="flags-row">
+      <div class="flag-pill"><img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" class="flag-img"> BRASIL</div>
+      <span class="vs-badge">VS</span>
+      <div class="flag-pill"><img src="https://flagcdn.com/jp.svg" alt="Bandeira do Japão" class="flag-img"> JAPÃO</div>
+    </div>
+
+    <div class="date-strip">29 DE JUNHO &nbsp;<span>|</span>&nbsp; 14H &nbsp;<span>|</span>&nbsp; Praça Figueiras Gastrobar
+    </div>
+
+    <div class="ticket-strip ticket-strip-normal">
+  <div class="ticket-price">29/06</div>
+
+  <div class="ticket-info">
+    <strong>O MATA-MATA PEDE UM LUGAR À ALTURA</strong>
+    <p>
+      Venha assistir Brasil x Japão, segunda-feira às 14h, com transmissão ao vivo nos telões e consumo pelo cardápio normal da casa.
+    </p>
+  </div>
+</div>
+
+    <a href="#reserva" class="cta-btn">Reservar Minha Mesa</a>
+  </div>
+
+  <div class="scroll-down">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    SAIBA MAIS
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CHAMADAS — Seção 2
+     Como não haverá pacote promocional para este jogo, esta seção reforça a experiência da casa.
+     Troque as imagens pelos bancos reais do Praça Figueiras quando desejar.
+══════════════════════════════════════ -->
+<section class="promo-section">
+  <div class="container">
+    <p class="section-label reveal">O que te espera</p>
+    <h2 class="section-title reveal">Um jogo decisivo<br>com a <em>experiência do Praça</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="promo-grid reveal">
+
+      <!-- ══ CARD 1 — TELÕES
+           Sugestão de imagem: foto dos telões, salão preparado para jogo ou ambiente da casa.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card">
+        <div class="promo-img-wrap">
+          <img src="imagens/telões.jpg" alt="Transmissão ao vivo nos telões"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Transmissão nos Telões</h3>
+          <span class="promo-highlight">Ao vivo</span>
+          <p>Acompanhe cada lance de Brasil x Japão em um ambiente preparado para reunir a torcida.</p>
+        </div>
+      </div>
+
+      <!-- ══ CARD 2 — CARDÁPIO NORMAL
+           Sugestão de imagem: prato da casa, petiscos, chopp ou mesa servida.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card menu-trigger-card" onclick="openMenuModal()" onkeydown="handleMenuCardKey(event)" role="button" tabindex="0" aria-label="Abrir cardápio completo em PDF">
+        <div class="promo-img-wrap">
+          <img src="imagens/cardapio.jpg" alt="Cardápio normal da casa"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Cardápio da Casa</h3>
+          <span class="promo-highlight">À sua escolha</span>
+          <p>Sem pacote fechado: você escolhe seus pratos, petiscos, drinks e bebidas direto do cardápio normal.</p>
+          <span class="cardapio-click-hint">Ver cardápio completo</span>
+        </div>
+      </div>
+
+      <!-- ══ CARD 3 — AMBIENTE
+           Sugestão de imagem: salão, área externa, famílias ou amigos reunidos no Praça Figueiras.
+           Tamanho ideal: 520×280px (proporção 16:9)
+      ══ -->
+      <div class="promo-card">
+        <div class="promo-img-wrap">
+          <img src="imagens/clima_copa.jpg" alt="Ambiente Praça Figueiras"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="promo-img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DAA520" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Trocar imagem aqui</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <h3>Ambiente Gastrobar</h3>
+          <span class="promo-highlight">Família e amigos</span>
+          <p>Um espaço confortável para torcer, almoçar, brindar e viver o clima da Copa no Praça Figueiras.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     EXPERIÊNCIA — "Muito além do jogo"
+══════════════════════════════════════ -->
+<section class="exp-banner">
+  <div class="exp-overlay"></div>
+
+  <div class="container exp-content">
+    <p class="section-label reveal">Muito além do jogo</p>
+
+    <h2 class="section-title reveal">
+      Segunda de Copa<br>
+      com sabor de <em>decisão</em>
+    </h2>
+
+    <div class="divider reveal"></div>
+
+    <p class="exp-description reveal">
+      Brasil x Japão acontece em uma segunda-feira, às 14h. É o momento ideal para sair da rotina, reunir a mesa e acompanhar o mata-mata em um dos ambientes mais completos da Rua das Figueiras.
+    </p>
+
+    <div class="exp-cards-grid reveal">
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Transmissão<br>ao vivo nos telões
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Jogo dia 29/06<br>às 14h
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-card-title">
+          Experiência<br>Praça Figueiras
+        </div>
+        <div class="exp-card-line"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     LOCALIZAÇÃO
+══════════════════════════════════════ -->
+<section class="location-section">
+  <div class="container">
+    <p class="section-label reveal">Onde nos encontrar</p>
+    <h2 class="section-title reveal">O endereço da sua <em>torcida</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="location-grid">
+
+      <!-- Mapa Google Maps -->
+      <div class="location-map reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29242.888426004647!2d-46.567522422308244!3d-23.62723749026554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce43006f859d1b%3A0x16dfc2039c0d588e!2sPra%C3%A7a%20Figueiras!5e0!3m2!1sen!2sbr!4v1779820945227!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!-- Informações de endereço -->
+      <div class="location-info reveal">
+        <h3>Praça Figueiras<br><em>Gastrobar</em></h3>
+      <p class="location-address">
+          Rua das Figueiras, 1149<br>
+          Jardim<br>
+          Santo André — SP
+        </p>
+        <div class="location-badges">
+          <div class="loc-badge"><strong>29 de Junho</strong></div>
+          <div class="loc-badge">Jogo às <strong>14h</strong></div>
+          <div class="loc-badge"><strong>Santo André – SP</strong></div>
+        </div>
+        <br>
+        <a href="#reserva" class="cta-btn" style="display:inline-block; margin-top:8px; animation:none;">
+          Reservar minha mesa
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FORMULÁRIO DE RESERVA
+══════════════════════════════════════ -->
+<section class="form-section" id="reserva">
+  <div class="container">
+
+    <div class="form-aside">
+      <p class="section-label reveal">Garanta seu lugar</p>
+      <h2 class="reveal">Reserve sua <em>mesa</em> agora</h2>
+      <div class="divider reveal"></div>
+      <p class="reveal">
+        Preencha o formulário e nossa equipe entrará em contato pelo WhatsApp para confirmar a disponibilidade da sua mesa para Brasil x Japão.
+      </p>
+      <div class="info-badge reveal">
+          <div>
+          <strong>Reservas limitadas!</strong>
+          Garanta sua mesa para assistir ao jogo nos telões, com o cardápio normal da casa à sua escolha.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <div id="form-container">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp / Telefone</label>
+            <input type="tel" id="telefone" placeholder="(11) 99999-9999" required />
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+          <label>Número de pessoas</label>
+
+          <input
+            type="number"
+            id="pessoas"
+            placeholder="Ex: 4"
+            min="1"
+            inputmode="numeric"
+            required
+          />
+          </div>
+          <div class="form-group">
+            <label>Como ficou sabendo?</label>
+            <select id="origem">
+              <option value="">Selecione</option>
+              <option>Instagram</option>
+              <option>WhatsApp / Indicação</option>
+              <option>Passando pelo local</option>
+              <option>Outros</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações (opcional)</label>
+          <textarea id="obs" placeholder="Tem alguma necessidade especial ou comentário?"></textarea>
+        </div>
+        <div class="form-terms">
+        <input type="checkbox" id="aceitePolitica" required>
+        <label for="aceitePolitica">
+          Eu aceito os termos da
+          <a href="politica-de-privacidade.html" target="_blank">
+            Política de Privacidade
+          </a>.
+        </label>
+      </div>
+        <button class="submit-btn" onclick="handleSubmit()">Quero Reservar Minha Mesa</button>
+        <p class="form-note">Após o envio, nossa equipe entrará em contato para confirmar sua reserva. Mesas sujeitas à disponibilidade.</p>
+      </div>
+
+      <div class="success-msg" id="success-msg">
+        <div class="big-check">
+          <img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" class="success-flag">
+        </div>
+        <h3>Reserva solicitada!</h3>
+        <p>Recebemos seu cadastro! Nossa equipe entrará em contato em breve via WhatsApp ou telefone para confirmar a disponibilidade da sua mesa para Brasil x Japão.<br><br><strong>#VemParaOPraça!</strong></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="logo-circle">
+  <img src="imagens/logo_padrao.png" alt="Praça Figueiras" class="logo-img">
+  </div>
+  <span class="hashtag">#VemParaOPraça</span>
+  <p><strong>Praça Figueiras Gastrobar</strong></p>
+  <p>Rua das Figueiras, 1149 - Jardim - Santo André - SP</p>
+</footer>
+
+
+
+<!-- ══════════════════════════════════════
+     MODAL DO CARDÁPIO EM PDF
+══════════════════════════════════════ -->
+<div id="menuPdfModal" class="menu-pdf-modal" aria-hidden="true" onclick="closeMenuModalOnBackdrop(event)">
+  <div class="menu-pdf-modal-box" role="dialog" aria-modal="true" aria-labelledby="menuPdfTitle">
+    <div class="menu-pdf-modal-header">
+      <p class="section-label">Cardápio Praça Figueiras</p>
+      <h3 id="menuPdfTitle">Escolha direto do nosso cardápio</h3>
+      <p>Confira as opções da casa e depois faça sua reserva para assistir Brasil x Japão nos telões.</p>
+      <button class="menu-pdf-close" type="button" onclick="closeMenuModal()" aria-label="Fechar cardápio">×</button>
+    </div>
+
+    <div class="menu-pdf-viewer">
+      <iframe
+        src="Cardapio%20Pra%C3%A7a%20Figueiras%20r18052026.pdf#toolbar=0&navpanes=0"
+        title="Cardápio Praça Figueiras em PDF"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="menu-pdf-actions">
+      <button class="cta-btn" type="button" onclick="goToReservationFromMenu()">
+        Reservar agora
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Phone mask ──
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
+
+  // ── Form submit ──
+async function handleSubmit() {
+  const jogo = "Brasil x Japão";
+  const dataJogo = "29/06/2026";
+  const horarioJogo = "14h";
+
+  const nome = document.getElementById('nome').value.trim();
+  const tel = document.getElementById('telefone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const pessoas = document.getElementById('pessoas').value.trim();
+  const origem = document.getElementById('origem').value;
+  const obs = document.getElementById('obs').value.trim();
+  const aceitePolitica = document.getElementById('aceitePolitica').checked;
+
+  if (!nome) {
+    alert('Por favor, preencha seu nome.');
+    return;
+  }
+
+  if (!tel) {
+    alert('Por favor, informe seu WhatsApp/telefone.');
+    return;
+  }
+
+  if (!email) {
+  alert('Por favor, informe seu e-mail.');
+  return;
+  }
+
+  if (!pessoas || pessoas <= 0) {
+    alert('Informe a quantidade de pessoas.');
+    return;
+  }
+
+  if (!aceitePolitica) {
+  alert('Você precisa aceitar a Política de Privacidade para continuar.');
+  return;
+}
+
+  const dados = {
+    jogo: jogo,
+    dataJogo: dataJogo,
+    horarioJogo: horarioJogo,
+    nome: nome,
+    telefone: tel,
+    email: email,
+    pessoas: pessoas,
+    origem: origem,
+    obs: obs,
+    aceitePolitica: aceitePolitica ? "Sim" : "Não"
+  };
+
+  fetch('https://script.google.com/macros/s/AKfycbyX0ijYWuUofz6iWgYwbIc-UTXYBeRpCkffC-VQMOoLJgdeN2kfwe-cZrgVJDPApnnk/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dados)
+  });
+
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        content_name: jogo,
+        content_category: 'Copa 2026',
+        num_items: Number(pessoas)
+      });
+    }
+
+  document.getElementById('form-container').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('success-msg').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyX0ijYWuUofz6iWgYwbIc-UTXYBeRpCkffC-VQMOoLJgdeN2kfwe-cZrgVJDPApnnk/exec";
+const COMPANY_WHATSAPP = "551145090121";
+
+function openWhatsAppPopup() {
+  document.getElementById("whatsappPopup").classList.add("active");
+}
+
+function closeWhatsAppPopup() {
+  document.getElementById("whatsappPopup").classList.remove("active");
+}
+
+async function sendWhatsAppLead() {
+  const nome = document.getElementById("whatsNome").value.trim();
+  const telefone = document.getElementById("whatsTelefone").value.trim();
+  const email = document.getElementById("whatsEmail").value.trim();
+  const pessoas = document.getElementById("whatsPessoas").value.trim();
+  const aceite = document.getElementById("whatsAceite").checked;
+
+  if (!nome || !telefone || !email || !pessoas) {
+    alert("Preencha nome, WhatsApp, e-mail e quantidade de pessoas.");
+    return;
+  }
+
+  if (!aceite) {
+    alert("Você precisa aceitar a Política de Privacidade para continuar.");
+    return;
+  }
+
+  const submitBtn = document.querySelector(".whatsapp-popup-submit");
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Enviando...";
+
+  const leadData = {
+    jogo: "Brasil x Japão",
+    dataJogo: "29/06/2026",
+    horarioJogo: "14h",
+    nome: nome,
+    telefone: telefone,
+    email: email,
+    pessoas: pessoas,
+    origem: "Botão WhatsApp",
+    obs: "Lead enviado pelo pop-up flutuante de WhatsApp para Brasil x Japão",
+    aceitePolitica: "Sim"
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(leadData)
+    });
+
+    const message = `
+Olá, Praça Figueiras! Quero informações sobre a reserva para assistir Brasil x Japão no dia 29/06 às 14h.
+
+Meus dados:
+Nome: ${nome}
+WhatsApp: ${telefone}
+E-mail: ${email}
+Quantidade de pessoas: ${pessoas}
+
+Aguardo o atendimento.
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        content_name: leadData.jogo,
+        content_category: 'Copa 2026',
+        num_items: Number(pessoas)
+      });
+    }
+
+    window.open(whatsappUrl, "_blank");
+
+    closeWhatsAppPopup();
+
+    document.getElementById("whatsNome").value = "";
+    document.getElementById("whatsTelefone").value = "";
+    document.getElementById("whatsEmail").value = "";
+    document.getElementById("whatsPessoas").value = "";
+    document.getElementById("whatsAceite").checked = false;
+
+  } catch (error) {
+    alert("Não foi possível enviar seus dados. Tente novamente.");
+    console.error(error);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Falar agora no WhatsApp";
+  }
+}
+
+
+
+// ── Modal do cardápio em PDF ──
+function openMenuModal() {
+  const modal = document.getElementById("menuPdfModal");
+  if (!modal) return;
+
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeMenuModal() {
+  const modal = document.getElementById("menuPdfModal");
+  if (!modal) return;
+
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+function closeMenuModalOnBackdrop(event) {
+  if (event.target && event.target.id === "menuPdfModal") {
+    closeMenuModal();
+  }
+}
+
+function goToReservationFromMenu() {
+  closeMenuModal();
+
+  setTimeout(() => {
+    const reserva = document.getElementById("reserva");
+    if (reserva) {
+      reserva.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, 120);
+}
+
+function handleMenuCardKey(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openMenuModal();
+  }
+}
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeMenuModal();
+  }
+});
+
+function maskWhatsPhone(input) {
+  let value = input.value.replace(/\D/g, "");
+
+  if (value.length > 11) {
+    value = value.slice(0, 11);
+  }
+
+  if (value.length <= 10) {
+    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+  } else {
+    value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+  }
+
+  input.value = value;
+}
+
+</script>
+
+<button class="whatsapp-floating-btn" onclick="openWhatsAppPopup()" aria-label="Falar no WhatsApp">
+  <span>WhatsApp</span>
+</button>
+
+<div id="whatsappPopup" class="whatsapp-popup">
+  <div class="whatsapp-popup-box">
+    <button class="whatsapp-popup-close" onclick="closeWhatsAppPopup()">×</button>
+
+    <p class="section-label">Atendimento rápido</p>
+    <h3>Fale com o Praça Figueiras</h3>
+
+    <p class="whatsapp-popup-text">
+      Preencha seus dados para iniciar o atendimento pelo WhatsApp e consultar disponibilidade de mesa.
+    </p>
+
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" id="whatsNome" placeholder="Seu nome">
+    </div>
+
+    <div class="form-group">
+      <label>WhatsApp</label>
+      <input 
+        type="tel" 
+        id="whatsTelefone" 
+        placeholder="(11) 90000-0000"
+        maxlength="15"
+        oninput="maskWhatsPhone(this)"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="whatsEmail" placeholder="seuemail@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Quantidade de pessoas</label>
+      <input type="number" id="whatsPessoas" min="1" placeholder="Ex: 4">
+    </div>
+
+    <label class="whatsapp-terms">
+  <input type="checkbox" id="whatsAceite">
+  <span>
+    Li e aceito a 
+    <a href="politica-de-privacidade.html" target="_blank">
+      Política de Privacidade
+    </a>.
+  </span>
+  </label>
+
+    <button class="whatsapp-popup-submit" onclick="sendWhatsAppLead()">
+      Falar agora no WhatsApp
+    </button>
+
+    <p class="whatsapp-popup-note">
+      Você será redirecionado para o WhatsApp com uma mensagem pronta.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
