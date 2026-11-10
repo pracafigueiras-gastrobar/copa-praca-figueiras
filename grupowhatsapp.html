@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#170d0f">
+  <meta name="description" content="Entre no grupo exclusivo do Praça Figueiras no WhatsApp. Preencha seu cadastro e acesse ofertas, eventos e novidades exclusivos dos membros.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Grupo Exclusivo no WhatsApp | Praça Figueiras">
+  <meta property="og:description" content="Preencha seus dados, clique no botão e entre no grupo exclusivo do Praça Figueiras.">
+  <meta property="og:locale" content="pt_BR">
+  <title>Grupo Exclusivo no WhatsApp | Praça Figueiras</title>
+  <link rel="icon" type="image/png" href="assets/simbolo-praca.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/ambiente-figueiras.webp">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="photo" aria-hidden="true"></div>
+  <div class="photo-shade" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="brand">
+      <div class="brand-icon"><img src="assets/simbolo-praca.png" alt="" width="100" height="100"></div>
+      <p class="brand-name">Praça Figueiras Gastrobar</p>
+      <p class="brand-tagline">Gastronomia, música e bons encontros.</p>
+      <p class="brand-local">Rua das Figueiras · Santo André</p>
+    </header>
+
+    <section class="signup-card" aria-labelledby="main-title">
+      <div class="signup-content">
+        <div class="eyebrow"><span class="wa-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.3 11.6a8.3 8.3 0 0 1-12.6 7.2L3.1 20l1.3-4.5a8.3 8.3 0 1 1 15.9-3.9Z"/><path d="M8.2 8.1c.8 3.7 4 6.7 7.8 7.6l1.3-1.5-2.3-1.2-.9 1c-1.7-.5-3.2-2-3.8-3.7l.9-1.1-1.2-2.1-1.8 1Z"/></svg></span><span>GRUPO EXCLUSIVO NO WHATSAPP</span></div>
+        <h1 id="main-title">Entre para o grupo exclusivo do Praça Figueiras.</h1>
+        <p class="subtitle">É simples: preencha seus dados e clique no botão. Assim que o cadastro for confirmado, você será direcionado automaticamente ao grupo no WhatsApp.</p>
+
+        <form id="leadForm" action="#" method="post" target="leadTransport" autocomplete="on">
+          <input type="hidden" id="requestId" name="request_id" value="">
+          <input type="hidden" name="origem" value="lp-grupo-exclusivo-praca-figueiras-2026">
+          <div class="honeypot" aria-hidden="true"><label for="website">Não preencher</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="form-field"><label for="nome">Nome completo</label><input id="nome" name="nome" type="text" placeholder="Como podemos chamar você?" autocomplete="name" minlength="2" maxlength="100" required></div>
+          <div class="form-field"><label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" maxlength="160" required></div>
+          <div class="form-field"><label for="telefone">WhatsApp com DDD</label><input id="telefone" name="telefone" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" inputmode="tel" maxlength="16" required></div>
+          <fieldset class="birthday">
+            <legend>Aniversário <span>(somente dia e mês)</span></legend>
+            <div class="birthday-fields">
+              <div class="form-field"><label class="visually-hidden" for="dia">Dia do aniversário</label><select id="dia" name="dia" aria-label="Dia do aniversário" required><option value="">Dia</option></select></div>
+              <div class="form-field"><label class="visually-hidden" for="mes">Mês do aniversário</label><select id="mes" name="mes" aria-label="Mês do aniversário" required><option value="">Mês</option><option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option><option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option><option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option><option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option></select></div>
+            </div>
+          </fieldset>
+          <label class="consent"><input id="consentimento" name="consentimento" type="checkbox" value="sim" required><span>Concordo em receber comunicações do Praça Figueiras e com o uso dos meus dados conforme a <a href="privacidade.html" target="_blank" rel="noopener noreferrer">Política de Privacidade</a>.</span></label>
+          <p id="formFeedback" class="feedback" role="status" aria-live="polite"></p>
+          <button id="submitButton" class="submit-button" type="submit"><span>Entrar no grupo exclusivo</span><span class="submit-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m0 0-6-6m6 6-6 6"/></svg></span></button>
+        </form>
+        <section id="successPanel" class="success" aria-live="polite" aria-labelledby="successTitle" hidden>
+          <div class="success-check" aria-hidden="true">✓</div>
+          <h2 id="successTitle">Cadastro confirmado!</h2>
+          <p>Estamos abrindo o grupo exclusivo no WhatsApp.</p>
+          <a id="groupLink" href="#" class="success-link" rel="noopener noreferrer">Se não abrir automaticamente, toque aqui</a>
+        </section>
+      </div>
+    </section>
+    <footer class="footer">Praça Figueiras · Santo André <span aria-hidden="true">·</span> <a href="privacidade.html">Privacidade</a></footer>
+  </main>
+  <iframe class="transport" id="leadTransport" name="leadTransport" title="Envio do cadastro" aria-hidden="true"></iframe>
+</body>
+</html>
